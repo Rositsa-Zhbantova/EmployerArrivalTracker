@@ -16,7 +16,7 @@ namespace EmployerArrivalTracker
 			routes.MapRoute(
 				name: "Default",
 				url: "{controller}/{action}/{id}",
-				defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+				defaults: new { controller = "EmployeeArrival", action = "EmployeesArrival", id = UrlParameter.Optional }
 			);
 		}
 	}

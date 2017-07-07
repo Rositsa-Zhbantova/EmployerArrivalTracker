@@ -1,0 +1,53 @@
+﻿@model IEnumerable<EmployerArrivalTracker.Employee>
+
+@{
+    ViewBag.Title = "EmployeesArrival";
+}
+
+    <input type="submit" value="Subscibe" onclick="location.href='@Url.Action("RegisterService", "EmployeeArrival")'" />
+	
+    <p></p>
+    <table border="1" width="300">
+	@using (Html.BeginForm("EmployeesArrival", "EmployeeArrival", FormMethod.Get))
+	{
+		<tr>
+			<th>
+				@Html.ActionLink("First Name", "EmployeesArrival", new { SortOrder = ViewBag.FirstName ,
+				 SelectedFirstName = ViewBag.SelectedFirstName,
+				 SelectedLastName = ViewBag.SelectedLastName})
+			</th>
+			<th>
+				@Html.ActionLink("Last Name", "EmployeesArrival", new { SortOrder = ViewBag.LastName ,
+			     SelectedFirstName = ViewBag.SelectedFirstName,
+			     SelectedLastName = ViewBag.SelectedLastName })
+			</th>
+			<th>
+				Arrival Time
+			</th>
+		</tr>
+		<tr>
+			<th>
+				@Html.DropDownList("SelectedFirstName", new SelectList(ViewBag.UniqueFirstNames, "Value",
+				 "Text", "ViewBag.SelectedFirstName"), "All", new { onchange = "form.submit();" })
+			</th>
+			<th>
+				@Html.DropDownList("SelectedLastName", new SelectList(ViewBag.UniqueLastNames, "Value",
+				 "Text", "ViewBag.SelectedLastName"), "All", new { onchange = "form.submit();" })
+			</th>
+
+		</tr>
+	}
+	@foreach (var item in Model)
+	{
+		<tr>
+			<th width="150">@Html.DisplayFor(modelItem => item.FirstName)</th>
+			<th width="150">@Html.DisplayFor(modelItem => item.LastName)</th>
+			@foreach (var arrival in item.Arrivals)
+			{
+				<th width="150">@arrival.Time.ToString()</th>
+			}
+
+		</tr>
+	}
+    </table>
+
